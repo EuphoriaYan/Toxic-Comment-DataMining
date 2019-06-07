@@ -1,4 +1,3 @@
-
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 
@@ -7,11 +6,14 @@ from sklearn.metrics import roc_auc_score
 
 from keras.models import Model
 from keras.layers import Input, Dense, Embedding, concatenate
-from keras.layers import Bidirectional, GRU, GlobalMaxPool1D, GlobalAveragePooling1D, SpatialDropout1D
+from keras.layers import Bidirectional, GRU, GlobalMaxPool1D, GlobalAveragePooling1D, SpatialDropout1D, Dropout
 from keras.preprocessing import text, sequence
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
 import warnings
 import os
+
+warnings.filterwarnings('ignore')
+os.environ['OMP_NUM_THREADS'] = '4'
 
 
 def get_model():

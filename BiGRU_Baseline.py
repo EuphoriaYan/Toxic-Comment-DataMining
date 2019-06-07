@@ -12,6 +12,9 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
 import warnings
 import os
 
+warnings.filterwarnings('ignore')
+os.environ['OMP_NUM_THREADS'] = '4'
+
 
 class RocAucEvaluation(Callback):
     def __init__(self, validation_data=(), interval=1):
@@ -77,12 +80,13 @@ if __name__ == '__main__':
     model.fit(X_tra, y_tra,
               batch_size=batch_size,
               epochs=epochs,
-              validation_split=0.1,
-              callbacks=[RocAuc])
+              validation_data=(X_val, y_val),
+              callbacks=[RocAuc],
+              verbose=2)
 
     model.save('./model/BiGRU-Baseline.hdf5')
 
-    y_pred = model.predict(X_test)
+    y_pred = model.predict(x_test)
     y_pred = [[1 if score > 0.5 else 0 for score in case] for case in y_pred]
     y_labels = test_label[list_classes].values
 
