@@ -3,7 +3,8 @@
 .idea/
 
 # Model files
-model/
+model/BiGRU-FastText.hdf5
+model/crawl-300d-2M.vec
 
 #input files
 input/
