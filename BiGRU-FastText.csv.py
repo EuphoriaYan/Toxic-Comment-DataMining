@@ -98,7 +98,7 @@ if __name__ == '__main__':
     batch_size = 32
     epochs = 2
 
-    X_tra, X_val, y_tra, y_val = train_test_split(x_train, y_train, train_size=0.95)
+    X_tra, X_val, y_tra, y_val = train_test_split(x_train, y_train, train_size=0.95, random_state=233)
     RocAuc = RocAucEvaluation(validation_data=(X_val, y_val), interval=1)
 
     model.fit(X_tra, y_tra,
