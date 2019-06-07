@@ -125,3 +125,4 @@ dmypy.json
 .pyre/
 
 .idea/workspace.xml
+*.hdf5
