@@ -51,7 +51,6 @@ if __name__ == '__main__':
     test = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_preprocessed.csv')
     submission = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/sample_submission.csv')
     test_label = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_labels.csv')
-    train = train.sample(frac=1)
 
     X_train = train["comment_text"].fillna("fillna").values
     list_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
