@@ -58,3 +58,5 @@ if __name__ == '__main__':
     submission = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/sample_submission.csv')
     test_label = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_labels.csv')
 
+
+    model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(training_features, training_labels)
