@@ -21,6 +21,12 @@ def get_model():
     x = Embedding(max_features, embedding_size, weights=[embedding_matrix])(inp)
     # TODO
 
+    model = Model(inputs=inp, outputs=x)  # TODO
+    model.compile(loss='binary_crossentropy',
+                  optimizer='adam',
+                  metrics=['accuracy'])
+    return model
+
 
 if __name__ == '__main__':
 
@@ -47,3 +53,4 @@ if __name__ == '__main__':
 
     embedding_matrix = np.load('./model/embedding_matrix.npy')
 
+    model = get_model()
