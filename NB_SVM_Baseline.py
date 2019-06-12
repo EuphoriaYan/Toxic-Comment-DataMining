@@ -18,6 +18,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_is_fitted
 from sklearn.linear_model import LogisticRegression
 from scipy import sparse
+import get_embedding
 
 
 class NbSvmClassifier(BaseEstimator, ClassifierMixin):
@@ -58,5 +59,13 @@ if __name__ == '__main__':
     submission = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/sample_submission.csv')
     test_label = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_labels.csv')
 
+    X_train = train["comment_text"].fillna("fillna").values
+    list_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
+    y_train = train[list_classes].values
+    X_test = test["comment_text"].fillna("fillna").values
 
-    model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(training_features, training_labels)
+    X_features = get_embedding.get_sentence_features(X_train, X_test)
+    np.save("./model/feature_matrix.npy", X_features)
+
+    model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(X_features, y_train)
+
