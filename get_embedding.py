@@ -16,9 +16,22 @@ warnings.filterwarnings('ignore')
 os.environ['OMP_NUM_THREADS'] = '4'
 
 
-def get_model():
+def get_word_embedding_model():
     inp = Input(shape=(maxlen,))
     x = Embedding(max_features, embedding_size, weights=[embedding_matrix])(inp)
+    # TODO
+
+    model = Model(inputs=inp, outputs=x)  # TODO
+    model.compile(loss='binary_crossentropy',
+                  optimizer='adam',
+                  metrics=['accuracy'])
+    return model
+
+
+def get_sentence_embedding_model():
+    inp = Input(shape=(maxlen,))
+    x = Embedding(max_features, embedding_size, weights=[embedding_matrix])(inp)
+    x = GlobalAveragePooling1D()(x)
     # TODO
 
     model = Model(inputs=inp, outputs=x)  # TODO
@@ -53,4 +66,4 @@ if __name__ == '__main__':
 
     embedding_matrix = np.load('./model/embedding_matrix.npy')
 
-    model = get_model()
+    model = get_sentence_embedding_model()
