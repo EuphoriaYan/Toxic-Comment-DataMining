@@ -7,3 +7,5 @@ model是3w词嵌入向量
 get_embedding.py是句子向量
 
 用nb_svm尝试一下做出的结果
+
+下载nltk工具包的话的话用[这个](nltk_downolad.py)脚本。

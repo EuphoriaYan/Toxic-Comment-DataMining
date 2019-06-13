@@ -246,14 +246,14 @@ class PatternTokenizer(BaseTokenizer):
 
 
 def main():
-    train = pd.read_csv("./jigsaw-toxic-comment-classification-challenge/train.csv")
-    test = pd.read_csv("./jigsaw-toxic-comment-classification-challenge/test.csv")
+    train = pd.read_csv("./input/train.csv")
+    test = pd.read_csv("./input/test.csv")
     
     tokenizer = PatternTokenizer()
     train["comment_text"] = tokenizer.process_ds(train["comment_text"]).str.join(sep=" ")
     test["comment_text"] = tokenizer.process_ds(test["comment_text"]).str.join(sep=" ")
-    train.to_csv("./jigsaw-toxic-comment-classification-challenge/train_preprocessed.csv", index=False)
-    test.to_csv("./jigsaw-toxic-comment-classification-challenge/test_preprocessed.csv", index=False)
+    train.to_csv("./input/train_preprocessed.csv", index=False)
+    test.to_csv("./input/test_preprocessed.csv", index=False)
 
 
 if __name__ == "__main__":

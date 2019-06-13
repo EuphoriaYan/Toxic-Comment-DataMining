@@ -54,17 +54,17 @@ class NbSvmClassifier(BaseEstimator, ClassifierMixin):
 
 if __name__ == '__main__':
 
-    train = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/train_preprocessed.csv')
-    test = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_preprocessed.csv')
-    submission = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/sample_submission.csv')
-    test_label = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_labels.csv')
+    train = pd.read_csv('./input/train.csv')
+    test = pd.read_csv('./input/test.csv')
+    submission = pd.read_csv('./input/sample_submission.csv')
+    test_label = pd.read_csv('./test_labels.csv')
 
     X_train = train["comment_text"].fillna("fillna").values
     list_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
     y_train = train[list_classes].values
     X_test = test["comment_text"].fillna("fillna").values
 
-    X_features = np.load("./model/feature_matrix.npy")
+    X_features = np.load("./model/embedding_matrix.npy")
 
     X_tra, X_val, y_tra, y_val = train_test_split(X_features, y_train, train_size=0.95, random_state=233)
 
