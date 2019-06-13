@@ -68,4 +68,3 @@ if __name__ == '__main__':
     np.save("./model/feature_matrix.npy", X_features)
 
     model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(X_features, y_train)
-
