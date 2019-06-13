@@ -37,7 +37,10 @@ def get_model():
     avg_pool = GlobalAveragePooling1D()(x)
     max_pool = GlobalMaxPool1D()(x)
     conc = concatenate([avg_pool, max_pool])
-    out = Dense(6, activation='sigmoid')(conc)
+    x = Dropout(0.1)(x)
+    x = Dense(50, activation='relu')(conc)
+    x = Dropout(0.1)(x)
+    out = Dense(6, activation='sigmoid')(x)
     model = Model(inputs=inp, outputs=out)
     model.compile(loss='binary_crossentropy',
                   optimizer='adam',
