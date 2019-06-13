@@ -66,4 +66,10 @@ if __name__ == '__main__':
 
     X_features = np.load("./model/feature_matrix.npy")
 
-    model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(X_features, y_train)
+    X_tra, X_val, y_tra, y_val = train_test_split(X_features, y_train, train_size=0.95, random_state=233)
+
+    model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(X_tra, y_tra)
+
+    y_pred = model.predict(y_val)
+    score = roc_auc_score(y_val, y_pred)
+    print("\n ROC-AUC - score: %.6f \n" % score)
