@@ -7,7 +7,6 @@ model/BiGRU-FastText.hdf5
 model/crawl-300d-2M.vec
 
 #input files
-input/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
