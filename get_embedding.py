@@ -62,3 +62,18 @@ def get_sentence_features(X_train, X_test):
     x_feature = model.predict(x_train)
 
     return x_feature
+
+
+if __name__ == "__main__":
+    train = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/train_preprocessed.csv')
+    test = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_preprocessed.csv')
+    submission = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/sample_submission.csv')
+    test_label = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/test_labels.csv')
+
+    X_train = train["comment_text"].fillna("fillna").values
+    list_classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
+    y_train = train[list_classes].values
+    X_test = test["comment_text"].fillna("fillna").values
+
+    X_features = get_sentence_features(X_train, X_test)
+    np.save("./model/feature_matrix.npy", X_features)

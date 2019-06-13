@@ -64,7 +64,6 @@ if __name__ == '__main__':
     y_train = train[list_classes].values
     X_test = test["comment_text"].fillna("fillna").values
 
-    X_features = get_embedding.get_sentence_features(X_train, X_test)
-    np.save("./model/feature_matrix.npy", X_features)
+    X_features = np.load("./model/feature_matrix.npy")
 
     model = NbSvmClassifier(C=4, dual=True, n_jobs=-1).fit(X_features, y_train)
