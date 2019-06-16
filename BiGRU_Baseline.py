@@ -9,6 +9,7 @@ from keras.layers import Input, Dense, Embedding, concatenate
 from keras.layers import Bidirectional, GRU, GlobalMaxPool1D, GlobalAveragePooling1D, SpatialDropout1D, Dropout
 from keras.preprocessing import text, sequence
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
+from keras.utils.vis_utils import plot_model
 import warnings
 import os
 
@@ -69,6 +70,7 @@ if __name__ == '__main__':
     x_test = sequence.pad_sequences(X_test, maxlen=maxlen)
 
     model = get_model()
+    plot_model(model, to_file='./model/BiGRU-Baseline-Model.png', show_shapes=True, show_layer_names=False)
 
     batch_size = 32
     epochs = 2
@@ -105,3 +107,4 @@ if __name__ == '__main__':
     print("total = %d" % total)
     print("correct = %d" % correct)
     print("acc = %.4f" % (1.0*correct/total))
+

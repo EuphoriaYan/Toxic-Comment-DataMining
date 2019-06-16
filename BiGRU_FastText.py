@@ -9,6 +9,7 @@ from keras.layers import Input, Dense, Embedding, concatenate
 from keras.layers import Bidirectional, GRU, GlobalMaxPool1D, GlobalAveragePooling1D, SpatialDropout1D, Dropout
 from keras.preprocessing import text, sequence
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
+from keras.utils.vis_utils import plot_model
 import warnings
 import os
 
@@ -48,10 +49,6 @@ def get_model():
     return model
 
 
-def get_coefs(word, *arr):
-    return word, np.asarray(arr, dtype='float32')
-
-
 if __name__ == '__main__':
 
     train = pd.read_csv('./input/jigsaw-toxic-comment-classification-challenge/train_preprocessed.csv')
@@ -75,28 +72,10 @@ if __name__ == '__main__':
     x_train = sequence.pad_sequences(X_train, maxlen=maxlen)
     x_test = sequence.pad_sequences(X_test, maxlen=maxlen)
 
-    '''
-    embedding_file = './model/crawl-300d-2M.vec'
-    
-    embeddings_index = dict(get_coefs(*o.rstrip().rsplit(' '))
-                            for o in open(embedding_file, encoding='utf-8', errors='ignore'))
-
-    word_index = tokenizer.word_index
-    nb_words = min(max_features, len(word_index))
-    embedding_matrix = np.zeros((nb_words, embedding_size))
-    for word, i in word_index.items():
-        if i >= max_features:
-            continue
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-
-    np.save("./model/embedding_matrix.npy", embedding_matrix)
-    '''
-
     embedding_matrix = np.load('./model/embedding_matrix.npy')
 
     model = get_model()
+    plot_model(model, to_file='./model/BiGRU-FastText-Model.png', show_shapes=True, show_layer_names=False)
 
     batch_size = 32
     epochs = 2
