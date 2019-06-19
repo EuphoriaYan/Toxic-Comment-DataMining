@@ -25,18 +25,7 @@ if __name__ == '__main__':
 
     tokenizer = text.Tokenizer(num_words=max_features)
     tokenizer.fit_on_texts(list(X_train) + list(X_test))
-    last_w = tokenizer.index_word[9999]
-    print(last_w)
-    print(tokenizer.word_counts[last_w])
-    last_w = tokenizer.index_word[19999]
-    print(last_w)
-    print(tokenizer.word_counts[last_w])
-    last_w = tokenizer.index_word[29999]
-    print(last_w)
-    print(tokenizer.word_counts[last_w])
 
-
-'''
     X_train = tokenizer.texts_to_sequences(X_train)
     X_test = tokenizer.texts_to_sequences(X_test)
     x_train = sequence.pad_sequences(X_train, maxlen=maxlen)
@@ -58,4 +47,4 @@ if __name__ == '__main__':
             embedding_matrix[i] = embedding_vector
 
     np.save("./model/embedding_matrix.npy", embedding_matrix)
-'''
+

@@ -9,6 +9,7 @@ from keras.layers import Input, Dense, Embedding, concatenate
 from keras.layers import Bidirectional, GRU, GlobalMaxPool1D, GlobalAveragePooling1D, SpatialDropout1D, Dropout
 from keras.preprocessing import text, sequence
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
+from keras.utils.vis_utils import plot_model
 import warnings
 import os
 
@@ -72,25 +73,6 @@ if __name__ == '__main__':
     x_train = sequence.pad_sequences(X_train, maxlen=maxlen)
     x_test = sequence.pad_sequences(X_test, maxlen=maxlen)
 
-    '''
-    embedding_file = './model/crawl-300d-2M.vec'
-    
-    embeddings_index = dict(get_coefs(*o.rstrip().rsplit(' '))
-                            for o in open(embedding_file, encoding='utf-8', errors='ignore'))
-
-    word_index = tokenizer.word_index
-    nb_words = min(max_features, len(word_index))
-    embedding_matrix = np.zeros((nb_words, embedding_size))
-    for word, i in word_index.items():
-        if i >= max_features:
-            continue
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-
-    np.save("./model/embedding_matrix.npy", embedding_matrix)
-    '''
-
     embedding_matrix = np.load('./model/embedding_matrix.npy')
 
     model = get_model()
@@ -115,18 +97,3 @@ if __name__ == '__main__':
 
     submission[list_classes] = y_pred
     submission.to_csv('./output/BiGRU-FastText-Baseline-e4.csv', index=False)
-
-    total = 0
-    correct = 0
-
-    for (pred, label) in zip(y_pred, y_labels):
-        for i in range(6):
-            if label[i] == -1:
-                continue
-            total += 1
-            if label[i] == pred[i]:
-                correct += 1
-
-    print("total = %d" % total)
-    print("correct = %d" % correct)
-    print("acc = %.4f" % (1.0*correct/total))

@@ -1,9 +1,6 @@
 import pandas as pd
-import numpy as np
 import copy
 import re
-from keras.preprocessing.text import text_to_word_sequence
-from nltk import WordNetLemmatizer
 
 
 class BaseTokenizer(object):
